@@ -1,94 +1,353 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta property="og:title" content="VoxelAdder" />
+<meta property="og:description" content="VoxelAdder is a plugin that can add custom contents to minecraft. It's can add custom blocks,items,GUIs,armors to minecraft" />
+<meta property="og:url" content="https://voxeladder.github.io" />
+<meta property="og:image" content="https://raw.githubusercontent.com/TamimhassanYT/voxeladder.github.io/refs/heads/main/va/icon.png" />
+<meta name="theme-color" content="#FFFFFF" />
+<title>VoxelAdder</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap">
+<link rel="stylesheet" type="text/css" href="header.css">
 <link rel="icon" href="favicon.ico">
-<title>Changelogs- VoxelAdder</title>
-<style>
-body {
-	margin: 0;
-	background-color: rgba(8, 8, 8, 0.9);
-	width: 100%; /* Using 100% instead of 100vw prevents scroll issues */
-	overflow-x: hidden;
-	min-height: 100vh;
-}
+	<style>
+		body {
+			margin: 0;
+			background-color: rgb(15, 15, 15);
+			width: 100%; /* Using 100% instead of 100vw prevents scroll issues */
+			overflow-x: hidden;
+			min-height: 100vh;
+		}
+		
+		.facebox {
+			place-items: center;
+			background-color: rgb(74, 74, 74, 0.2);
+			max-width: 95%;
+			height: auto;
+			margin: 5% auto;
+			border: 2px solid;
+			border-radius: 5px;
+			border-color: rgb(0, 0, 0, 0.5);
+			display: grid;
+			animation-name: fadeIn;
+			animation-duration: 1s;
+			animation-timing-function: ease-in;
+			transition: 0.3s;
+			transition-timing-function: ease-in-out;
+			text-align: justify;
+		}
+		
+		.facebox:hover {
+			margin: 4.8% auto;
+		}
+		
+		.faceboxv {
+			font-family: 'Outfit', sans-serif;
+			font-weight: 400;
+			text-shadow: 0px 0px 15px rgb(222, 222, 222);
+			color: rgb(222, 222, 222);
+		}
+		
+		.faceboxw {
+			font-family: "Roboto Mono Thin", san-serif;
+			font-weight: 400px;
+			text-shadow: 0px 0px 15px rgb(222, 222, 222);
+			color: rgb(222, 222, 222);
+		}
+		
+		@keyframes fadeIn {
+			from { opacity: 0; }
+			to { opacity: 1; }
+		}
+		
+		.typing-container h3 {
+			font-family: 'Roboto Mono Thin', sans-serif;
+			color: white;
+		}
 
-.vaheader {
-	background-color: rgb(71, 71, 71, 0.9);
-	position: sticky;
-	top: 0; /* Required for sticky to work */
-	border-radius: 0px 0px 5px 5px;
-	padding: 10px;
-	display: grid;
-	grid-template-columns: 10% 90%;
-	z-index: 2;
-}
+		#typewriter {
+			padding: 0;
+			margin: 0;
+			white-space: nowrap; /* Prevents the word from wrapping */
+		}
 
-.vaheader h1 {
-	margin: 0;
-	font-family: "Archivo Black", sans-serif;
-	font-weight: 400;
-	text-shadow: 0px 0px 16px white;
-	color: rgb(227, 226, 225);
-	transition: 1.5s;
-}
+		.cursor {
+			/* If there is still a gap, increase this number (e.g., -5px) */
+			margin-left: -3px; 
+			
+			display: inline-block;
+			padding: 0;
+			font-weight: bold;
+			animation: blink 0.8s infinite;
+		}
 
-.hbtn {
-	background-color: #1e1e1e;
-	border: 1px solid white;
-	border-radius: 5px;
-	margin: 1px 10px 1px 10px;
-	padding: 10px 20px 10px 20px;
-	color: white;
-	transition: 0.4s;
-	transition-timing-function: ease-in-out;
-	opacity: 0.6;
-}
+		@keyframes blink {
+			0%, 100% { opacity: 1; }
+			50% { opacity: 0; }
+		}
+		
+		.desc {
+			color: white;
+			text-align: justify;
+			padding: 30px;
+			font-family: "Roboto Mono Thin", sans-serif;
+		}
+		
+		.hbelow {
+			min-height: 25vh;
+			width: 100%;
+			background-color: rgb(29, 29, 29);
+			border: 2px;
+			border-color: white;
+			display: grid;
+			grid-template-columns: 50% 50%;
+		}
+		
+		.blockimg {
+			object-fit: cover;
+			width: 100%;
+			height: 100%;
+		}
 
-.vaheader h1:hover {
-	color: rgb(255, 255, 255, 1);
-	text-shadow: 0 0 12px white;
-}
+		.warnformobies {
+			display: none;
+			background-color: rgb(28, 28, 28);
+			border: 2px solid black;
+			border-radius: 5px;
+			width: 25%;
+			height: auto;
+			color: white;
+			z-index: 2;
+		}
 
-.hbtn:hover {
-	background-color: white;
-	border: 1px solid black;
-	color: black;
-	opacity: 0.8;
-}
+		@media (max-width: 1000px) {
+			.warnformobies {
+				display: block;
+				height: 100vh;
+				width: 100vw;
+				position: fixed;
+			}
+		}
 
-.hbtns {
-	display: flex;
-	justify-content: right;
-	padding-right: 30px;
-}
+		.buttonwarn {
+			background-color: black;
+			border: 2px solid white;
+			cursor: poiner;
+			padding: 25px 30px;
+			border-radius: 10px;
+			color: white;
+			font-size: 15px;
+			transition: 0.1s;
+			transition-timing-function: ease-in;
+		}
 
-.topbox {
-	width: 100vw;
-	display: flex;
-	justify-content: center;
-	padding-top: 3vw;
-}
-
-#clbg {
-	width: 95vw;
-	min-height: 50vh;
-	background-color: #828282;
-	border-radius: 10px;
-}
-</style>
+		.buttonwarn:hover {
+			background-color: white;
+			border: 2px solid black;
+			color: black;
+		}
+		
+		.modrinth {
+			background-image: url("mr.webp");
+			width: auto;
+			max-height: 75vh;
+		}
+		
+		.modrinthdb {
+			background-color: #00bd3c;
+			padding: 10px 30px;
+			color: white;
+			border-radius: 5px;
+			border: 3px solid #047b29;
+			font-family: "", sans-serif;
+			transition: 0.2s;
+			transition-timing-function: ease-in-out;
+		}
+		
+		.modrinthdb:hover {
+			background-color: #1ef778;
+			cursor: pointer;
+		}
+				
+		.sociald {
+			background-image: url('discord.webp');
+			min-height: 15vh;
+			width: 25vw;
+			background-size: contain;
+			background-position: center;
+			background-repeat: no-repeat;
+			transition: 0.4s;
+			transition-timing-function: ease-in-out;
+		}
+		
+		.sociald:hover {
+			transform: scale(1.025);
+		}
+		
+		#ap {
+			transition: 0.4s;
+			transition-timing-function: ease-in-out;
+		}
+		
+		#ap:hover {
+			transform: scale(1.025);
+		}
+	</style>
 </head>
 <body>
-<div class="vaheader">
-	<h1 onclick="">VoxelAdder</h1>
-	<div class="hbtns">
-		<button class="hbtn" onclick="window.location.href = 'https://voxeladder.github.io/wiki/'">Wiki</button>
-		<button class="hbtn" onclick="window.location.href = 'https://voxeladder.github.io/'">Home</button>
+	<div class="vaheader">
+		<h1 id="vah1" onclick="window.location.href = 'https://voxeladder.github.io/'">VoxelAdder</h1>
+		<div class="hbtns">
+			<div class="menu">
+				<button class="mmenu">Menu</button>
+				<div class="menul">
+					<button id="mbtn" onclick="window.location.href = 'https://voxeladder.github.io/changelogs/'">Changelog</button>
+					<button id="mbtn" onclick="window.location.href = 'https://voxeladder.github.io/wiki/'">Wiki</button>
+					<button id="mbtn" onclick="window.location.href = 'https://voxeladder.github.io/va-dev'">Voxeladder Development</button>
+				</div>
+			</div>
+		</div>
 	</div>
-</div>
-<div class="topbox">
-	<div id="clbg">
+	<div class="warnformobies">
+		<div style="background-color: black; border: 5px; border-color: rgb(255, 255, 255); border-radius: 10px; width: 75%; margin: auto; display: grid">
+			<div style="padding:10px;border: 2px solid white; border-radius: 10px; margin: auto; display: inline-block">
+				<h1>For the best experience, use Landscape or Desktop Mode.</h1>
+				<button class="buttonwarn" onclick="closewarn()">Close this warn</button>
+			</div>
+		</div>
 	</div>
-</div>
+	<div class="facebox">
+		<h2 class="faceboxw">Wellcome to</h2><h1 style="font-family: 'Outfit', sans-serif;text-align:center;color:white;text-shadow: 0px 0px 16px white">VoxelAdder</h1>
+
+		<div class="typing-container">
+			<h3>This plugin can add <span id="typewriter"></span><span class="cursor">|</span><span>to minecraft</span>
+			<h3 style="font-family: 'Roboto Mono Thin', sans-serif; color: white; text-align: center">in both editions</h3>
+			</h3>
+		</div>
+
+		<p class="desc">VoxelAdder is a powerful plugin that can bring custom content into Minecraft effortlessly. With VoxelAdder, you can add blocks, items, GUIs, armors, and more—without worrying about compatibility issues.<br>It also supports cross-platform usage, allowing your custom content to work in Minecraft Bedrock/Pocket Edition through the GeyserMC plugin in just a few clicks.<br>VoxelAdder includes a flexible export system, making your creations usable across a wide range of platforms and loaders, including Forge, Fabric, NeoForge, Paper, Spigot, Folia, Velocity, BungeeCord, Waterfall, Arclight, and even vanilla Minecraft.</p>
+	</div>
+	<div class="hbelow">
+		<div class="blockdesc">
+			<h2 style="font-family: 'Minecraftia', san-serif; color: white; text-shadow: 0px 0px 25px white; padding-left: 25px">Block</h2>
+			<p style="font-family: 'Minecraftia', san-serif; color: white; text-shadow: 0px 0px 16px rgb(255, 255, 255, 0.4); padding-left: 25px">VoxelAdder provides a robust framework for adding new blocks to Minecraft.<br><br>• Rendering: Includes two specialized rendering paths for optimal block display.<br>• API/Events: Extensive event support including OnPlace, OnBreak, and RelativeTick for advanced block behavior.<br>• Model Support: Full synchronization between block and item models, allowing for easy visual modifications without compatibility errors.</p>
+		</div>
+		<div class="blockimage">
+		<img src="block.webp" class="blockimg">
+		</div>
+	</div>
+	<div style="height: 15vh;"></div>
+	<div class="itemcont" style="display: grid; grid-template-columns: 50% 50%; min-height: 25vh; background-color: rgb(29, 29, 29)">
+		<div class="itemimg">
+			<img src="itemimg.webp" class="blockimg">
+		</div>
+		<div class="itemdesc">
+			<h2 style="font-family: 'Minecraftia', san-serif; color: white; text-shadow: 0px 0px 25px white; padding-left: 25px">Item</h2>
+			<p style="font-family: 'Minecraftia', san-serif; color: white; text-shadow: 0px 0px 16px rgb(255, 255, 255, 0.4); padding-left: 25px">Add limitless new items to your game without sacrificing a single vanilla asset. VoxelAdder leverages modern systems to ensure your custom gear feels native to Minecraft.<br><br>• Non-Destructive Integration: Uses the CustomModelData (CMD) system to add new items without replacing or overwriting original Minecraft items.<br>Advanced Event Triggers: Go beyond basic interactions with a deep library of item-specific events:<br> • Inventory & Slot Ticks: Run logic every tick the item is in a player's inventory.</p>
+		</div>
+	</div>
+	<div style="height: 15vh;"></div>
+	<div class="guicont" style="display: grid; grid-template-columns: 50% 50%; min-height: 25vh; background-color: rgb(29, 29, 29)">
+		<div class="guidesc">
+			<h2 style="font-family: 'Minecraftia', san-serif; color: white; text-shadow: 0px 0px 25px white; padding-left: 25px">GUI</h2>
+			<p style="font-family: 'Minecraftia', san-serif; color: white; text-shadow: 0px 0px 16px rgb(255, 255, 255, 0.4); padding-left: 25px">It can add custom GUIs to minecraft. just that much info :)</p>
+		</div>
+		<div class="guiimg">
+			<img src="gui.webp" class="blockimg">
+		</div>
+	</div>
+	<div style="height: 15vh;"></div>
+	<div class="armor" style="display: grid; grid-template-columns: 50% 50%; min-height: 25vh; background-color: rgb(29, 29, 29)">
+		<div class="armorimg">
+			<img src="armor.webp" class="blockimg">
+		</div>
+		<div class="armordesc">
+			<h2 style="font-family: 'Minecraftia', san-serif; color: white; text-shadow: 0px 0px 25px white; padding-left: 25px">Armor (Experimental but available)</h2>
+			<p style="font-family: 'Minecraftia', san-serif; color: white; text-shadow: 0px 0px 16px rgb(255, 255, 255, 0.4); padding-left: 25px">VoxelAdder can add custom armors to minecraft. Sadfully it's only available 1.20 or above (that's why it's still in experimental). We're working on it to fix it. Armor items (helmet,boots etc) can have different texture, different model etc.</p>
+		</div>
+	</div>
+	<div style="height: 20vh;"></div>
+	<div class="plans" style="min-height: 25vh; background-color: rgb(41, 41, 41)">
+		<div class="futureplan" style="min-height: 25vh">
+			<h1 style="font-family: 'Minecraftia', san-serif; color: white; text-shadow: 0px 0px 25px white; padding-top:25px;padding-left:25px">Future Plans</h1>
+			<h3 style="font-family: 'Minecraftia', san-serif; color: white; text-shadow: 0px 0px 16px rgb(255, 255, 255, 0.4); padding-left: 25px">• Animations: Trying to add animation, making it perfect and high-performance (out of experimental phrase).<br>• Custom Entity Framework: Working on custom entity AI with models and also Events/Triggers<br>• Performance & Optimization: Continuous internal refinements to ensure the plugin remains lightweight and high-performance.</h3>
+		</div>
+		<div class="featureplan" style="min-height: 25vh">
+			<h1 style="font-family: 'Minecraftia', san-serif; color: white; text-shadow: 0px 0px 25px white; padding-top:25px;padding-left:25px">Features</h1>
+			<h3 style="font-family: 'Minecraftia', san-serif; color: white; text-shadow: 0px 0px 16px rgb(255, 255, 255, 0.4); padding-left: 25px">• Native support for most plugin loaders and Vanilla environments. Seamlessly bridge the gap with Bedrock Edition via GeyserMC.<br>• Take control with specialized triggers: from item drops and pickups to complex GUI ticks, armor updates, and block-relative logic.<br>• Build advanced custom content through an intuitive visual editor designed specifically for beginners and power users alike.<br>• Very easy to setup</h3>
+		</div>
+	<div style="height: 20vh"></div>
+	<div><h1 style="text-align: center; font-family: 'Minecraftia', sans-serif; color: white; text-shadow: 0 0 45px white">Available on<h1></div>
+	<div style="min-height: 25vh; background-color: rgb(41, 41, 41, 0.1); display: grid; grid-template-columns: 33% 33% 33%; z-index: -1;">
+		<div id="ap" style="position: relative; border: 2px solid rgb(69, 69, 69); border-radius: 20px; height: 75vh; margin: 35px; background-image: url('modrinth.webp'); background-position: center; background-size: cover; overflow: hidden;">
+			<div style="position: absolute; bottom: 0; left: 0; right: 0; display: flex; flex-direction: column;">
+				<div style="background: linear-gradient(to bottom, rgba(14, 18, 43, 0) 0%, rgba(14, 18, 43, 1) 100%); height: 250px;">
+				</div>
+				<div style="background-color: rgba(14, 18, 43, 1); padding: 20px; min-height: 150px;">
+					<h1 style="color: transparent; margin: 0; font-family: '', sans-serif; -webkit-text-fill-color: transparent; white-space: nowrap; -webkit-background-clip: text; background-image: linear-gradient(180deg, #a7d0ff 0, #1bd96a 60%);">Modrinth</h1>
+					<p style="font-size: 1.25rem;color: #afb6be;font-family: '', sans-serif">This plugin available in Modrinth</p>
+					<button class="modrinthdb" onclick="btncmd(1)">Get</button>
+				</div>
+			</div>
+		</div>
+		<div id="ap" style="display: flex; justify-content: center; position: relative; border: 2px solid rgb(69, 69, 69); border-radius: 20px; height: 75vh; margin: 35px; background-image: url('curseforged.webp'); background-size: cover; background-position: center; background-repeat: no-repeat; overflow: hidden;">
+			<div style="position: absolute; bottom: 0; left: 0; right: 0; display: flex; flex-direction: column;">
+				<div style="background: linear-gradient(to bottom, rgba(14, 18, 43, 0) 0%, #490d00 100%); height: 250px;">
+				</div>
+				<div style="background-color: #490d00; padding: 20px; min-height: 150px;">
+					<h1 style="color: white; margin: 0; font-family: '', sans-serif;">Curseforge</h1>
+					<p style="font-size: 1.25rem;color: #afb6be;font-family: '', sans-serif">This plugin available in Curseforge</p>
+					<button class="modrinthdb" onclick="btncmd(3)">Get</button>
+				</div>
+			</div>
+		</div>
+		<div id="ap" style="position: relative; border: 2px solid rgb(69, 69, 69); border-radius: 20px; height: 75vh; margin: 35px; background-image: url('githubd.webp'); background-size: cover; background-position: center; overflow: hidden;">
+			<div style="position: absolute; bottom: 0; left: 0; right: 0; display: flex; flex-direction: column;">
+				<div style="background: linear-gradient(to bottom, rgba(14, 18, 43, 0) 0%, rgba(14, 18, 43, 1) 100%); height: 250px;">
+				</div>
+				<div style="background-color: rgba(14, 18, 43, 1); padding: 20px; min-height: 150px;">
+					<h1 style="color: white; margin: 0; font-family: '', sans-serif;">Github</h1>
+					<p style="font-size: 1.25rem;color: #afb6be;font-family: '', sans-serif">This plugin available in Github</p>
+					<button class="modrinthdb" onclick="btncmd(2)">Get</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div style="height: 20vh"></div>
+	<div style="background-color: rgb(69, 69, 69); min-height: 35vh; width: 100vw">
+		<div><h1 style="text-align: center; font-family: 'Minecraftia', sans-serif; color: white; text-shadow: 0 0 45px white; padding: 15px">Community<h1></div>
+		<div style="display: flex; justify-content: center; width: auto">
+			<div onclick="window.location.href = 'https://discord.gg/qfSDZbWY93'" class="sociald">
+			</div>
+		</div>
+	</div>
+    <script src='typewritter.js' defer></script>
+<script>
+	function openlinks(a) {
+		if (a === 1) {
+			window.location.href = "https://voxeladder.github.io/";
+		}
+	};
+	function closewarn() {
+	    const warningElement = document.querySelector('.warnformobies');
+    
+	    if (warningElement) {
+	        warningElement.style.display = 'none';
+	    }
+	};
+	function btncmd(a) {
+		if (a === 1) {
+			window.location.href = "https://modrinth.com/plugin/voxeladder";
+		} else if (a === 2) {
+			window.location.href = "https://github.com/TamimhassanYT/VoxelAdder";
+		} else if (a === 3) {
+			window.location.href = "https://curseforge.com";
+		} else if (a === 4) {
+			window.location.href = "https://voxeladder.github.io/wiki/";
+		} else if (a === 5) {
+			window.location.href = "https://voxeladder.github.io/howtouse/";
+		}
+	};
+</script>
 </body>
 </html>
