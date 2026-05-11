@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap">
+<link rel="stylesheet" type="text/css" href="../header.css">
+<link rel="icon" href="../favicon.ico">
+<title>VoxelAdder wiki</title>
+<style>
+		body {
+			margin: 0;
+			background-color: rgba(15, 15, 15);
+			width: 100%; /* Using 100% instead of 100vw prevents scroll issues */
+			overflow-x: hidden;
+			min-height: 100vh;
+		}
+		.whatabout {
+			padding-left: 20px;
+			padding-bottom: 20px;
+			background-color: rgb(74, 74, 74);
+			width: 95vw;
+			border: 3px solid rgb(191, 191, 191, 0.3);
+			border-radius: 5px;
+		}
+		
+		.whatabout #header, #de {
+			font-family: "OutFit", sans-serif;
+			color: white;
+			opacity: 0.8;
+		}
+		
+		.whatabout #geysermc {
+			font-family: "Archivo Black", sans-serif;
+		}
+		
+		.whatabout #geysermc:link {
+			color: rgb(0, 4, 66);
+		}
+		
+		.whatabout #geysermc:visited {
+			color: rgb(11, 79, 2);
+		}
+		
+		.wikibox {
+			display: flex;
+			justify-content: center;
+			padding-top: 20px;
+			z-index: 1;
+		}
+		
+		.whatabout #po, #nm, #ia {
+			color: white;
+			text-decoration-thickness: 5px;
+		}
+		
+		.whatabout #po:hover, #nm:hover, #ia:hover {
+			cursor: pointer;
+			text-decoration-thickness: 5px;
+			color: white;
+		}
+		#c, #e {
+			color: white;
+		}
+		
+		.de {
+			text-align: center;
+		}
+		
+		.fb:hover #c {
+			color: #E57540;
+			text-shadow: 0px 0px 10px #E57540;
+		}
+		
+		.fb:hover #e {
+			color: #212124;
+			text-shadow: 0px 0px 10px #212124;
+		}
+		
+		#e, #c, #nm, #ia {
+			transition: 0.3s;
+			transition-timing-function: ease-in-out;
+		}
+		
+		.fb:hover {
+			cursor: pointer;
+		}
+		
+		
+		#nm:hover {
+			background-image: linear-gradient(45deg, #8E29FF, #2500C7);
+			-webkit-background-clip: text;
+			background-clip: text;
+			-webkit-text-fill-color: transparent;
+			text-shadow: 0px 0px 10px #2D0073;
+		}
+		
+		#ia:hover {
+			background-image: linear-gradient(45deg, #7E45A8, #490178);
+			-webkit-background-clip: text;
+			background-clip: text;
+			-webkit-text-fill-color: transparent;
+			text-shadow: 0px 0px 10px #490073;
+		}
+		
+	</style>
+
+</head>
+<body>
+	<div class="vaheader">
+		<h1 id="vah1" onclick="window.location.href = '../'">VoxelAdder</h1>
+		<div class="hbtns">
+			<div class="menu">
+				<button class="mmenu">Menu</button>
+				<div class="menul">
+					<button id="mbtn" onclick="window.location.href = '../changelogs/'">Changelogs</button>
+					<button id="mbtn" onclick="window.location.href = '../va-dev'">VoxelAdder Development</button>
+					<button id="mbtn" onclick="window.location.href = '../'">Home</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="wikibox">
+		<div class="whatabout">
+			<h2 id="header">What's VoxelAdder?</h2>
+			<p><span id="header">VoxelAdder is a plugin that can add custom contents like blocks,items,GUIs,armors to minecraft. It's mainly designed for compatibility. That's why it's support bedrock by </span><a id="geysermc" href="https://geysermc.org/">Geysermc plugin</a></p>
+			<div style="height:2vh"></div>
+			<h2 id="header">Which one we'll choose?</h2>
+			<p><span id="header">VoxelAdder has another version called 'VoxelAdder Development'<br><br>• If you want to have simple custom contents in wide range of minecraft versions with editions and dont care about to use unknown scary events/trigger like you be like, "'Block-State broken person' wth" and frameworks then you defenitly should go with VoxelAdder. It has easy to use (it's not scary as c++) web Editor<br>• If you want advance events/triggers with custom framework and add perfect content that has maximum accessibility then you defenitly should go with VoxelAdder Development.</span></p>
+			<div style="height:2vh"></div>
+			<h2 id="header">Now, what's VoxelAdder Development?</h2>
+			<p><span id="header">VoxelAdder Development is a powerful version of Voxeladder. (Confusing right?) What's the difference between?<br><br>Ans: VoxelAdder has a major difference between VoxelAdder Development, that is wide range. VoxelAdder has a system to export your custom content to use any where and even in vanilla minecraft, but unfortunately, Voxeladder Development doesn't have that functionality means you can add custom content on selected platforms like papermc,fabric,neoforge,forge,bukkit and papermc,bukkit's forks (if you're using VoxelAdder Development). One thing is good about is wide range in VoxelAdder Development, that is it hasn't removed the support of geysermc plugin means, your pocket/bedrock friends can see those custom contents and we're working updating and downdating the plugin as soon as possible to have almost all the version's servers can have updated version without requiring updating their server version or minecraft verison (nerds translation: obiously it's the game version)<br><br><br>Why is VoxelAdder Development needed?<br><br>Ans: Because VoxelAdder Development has more content accessibility functionality then VoxelAdder. Like It's can open gui on any triggers/events, instant rightclick/leftclick detection on any items, block has more triggers/events: 'pre-break, breaking started etc' etc.  </span></p>
+			<div style="height:2vh"></div>
+			<p><span id="header"></p>
+			<h2 id="header">Any competitor?</h2>
+			<p><span id="de">Yes, In adding custom content to minecraft without requiring client-side mods, there're soo many plugins like </span><div class="fb" id="ce" style="display: inline-block; vertical-align: baseline"><span id="c">Craft</span><span id="e"> Engine</span></div><span id="nm"> Nexo maker</span>,<span id="ia"> Itemsadder</span><span><span id="de"> etc. One of them, Craft-engine has their own powerful LOD and Visual rendering system which is nearly impossible to have VoxelAdder. There're large competition to VoxelAdder. VoxelAdder mainly designed for Widerange use like no version incompatibility and editions compatibility done by kastle's converter via Geysermc plugin unless VoxelAdder Development doesn't has version compatibility that much, we're trying to fix it as soon as possible</span></p>
+			<div style="height:2vh"></div>
+			<h2 id="header">It is free and open-source?</h2>
+			<p><span id="de">Yes, VoxelAdder and VoxelAdder Development is completely free and open-source unlike nexomaker, craft-engine. They provide free version but it's too limited</span></p>
+
+		</div>
+	</div>
+</div>
+<script>
+const ce = document.getElementById("ce"), nm = document.getElementById("nm"), ia = document.getElementById("ia");
+
+if (ce) {
+    ce.addEventListener("click", function () {
+        window.location.href = "https://modrinth.com/plugin/craftengine";
+    });
+}
+
+if (nm) {
+    nm.addEventListener("click", function () {
+        window.location.href = "https://nexomaker.com/";
+    });
+}
+
+if (ia) {
+    ia.addEventListener("click", function () {
+        window.location.href = "https://itemsadder.com/";
+    });
+}
+</script>
+</body>
+</html>
