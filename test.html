@@ -20,7 +20,7 @@
       });
 
       function loginWithDiscord() {
-          const clientId = 'YOUR_DISCORD_CLIENT_ID';
+          const clientId = '1479417445260464171';
           const redirectUri = encodeURIComponent(window.location.origin + '/api/callback');
           // We request 'identify' to get their username/ID and 'email' if needed
           window.location.href = `https://discord.com{clientId}&redirect_uri=${redirectUri}&response_type=code&scope=identify%20email`;
