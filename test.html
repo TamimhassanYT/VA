@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <script>
+  window.addEventListener('DOMContentLoaded', async () => {
+    console.log("Browser: Sending message to secure function...");
+
+    try {
+      const response = await fetch('/secure-log', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: "Hello from the user's browser!" })
+      });
+
+      const result = await response.json();
+      console.log("Function Response:", result.status);
+    } catch (error) {
+      console.error("Error talking to function:", error);
+    }
+  });
+</script>
+  </body>
+</html>
