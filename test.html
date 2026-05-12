@@ -18,9 +18,16 @@
           console.error("Error talking to function:", error);
         }
       });
+
+      function loginWithDiscord() {
+          const clientId = 'YOUR_DISCORD_CLIENT_ID';
+          const redirectUri = encodeURIComponent(window.location.origin + '/api/callback');
+          // We request 'identify' to get their username/ID and 'email' if needed
+          window.location.href = `https://discord.com{clientId}&redirect_uri=${redirectUri}&response_type=code&scope=identify%20email`;
+      }
     </script>
   </head>
   <body>
-    <h1>Hello</h1>
+    <button onclick="loginWithDiscord()">Sign up with Discord</button>
   </body>
 </html>
