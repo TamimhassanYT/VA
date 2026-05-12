@@ -20,14 +20,16 @@
       });
 
       function loginWithDiscord() {
-        // 1. IMPORTANT: Replace this with your actual Client ID from Discord Portal
-        const clientId = 'YOUR_DISCORD_CLIENT_ID'; 
+        // PASTE YOUR REAL CLIENT ID BETWEEN THE QUOTES BELOW
+        const clientId = '1479417445260464171'; 
         
-        // 2. This creates the redirect URL dynamically
         const redirectUri = encodeURIComponent(window.location.origin + '/api/callback');
         
-        // 3. FIXED: Added the '?' after /authorize to start the query parameters
-        const discordUrl = `https://discord.com{clientId}&redirect_uri=${redirectUri}&response_type=code&scope=identify%20email`;
+        // This builds the full link correctly
+        const discordUrl = 'https://discord.com' + 
+                           '?client_id=' + clientId + 
+                           '&redirect_uri=' + redirectUri + 
+                           '&response_type=code&scope=identify%20email';
         
         window.location.href = discordUrl;
       }
