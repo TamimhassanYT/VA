@@ -8,23 +8,23 @@ async function checkAuth() {
         const authZone = document.getElementById('auth-zone');
 
         if (data.loggedIn) {
-            // Show Dashboard, Hide Login
             guestView.style.display = 'none';
             userCard.style.display = 'block';
             
-            // Update User Info
-            document.getElementById('user-name').innerText = `ID: ${data.id}`;
-            document.getElementById('user-id').innerText = "Discord Authenticated";
+            // Set the name and avatar from Discord
+            document.getElementById('user-name').innerText = data.username;
+            document.getElementById('user-id').innerText = `ID: ${data.id}`;
+            document.getElementById('user-avatar').src = data.avatar;
             
-            // Update Navbar
-            authZone.innerHTML = `<span style="color: #43b581">● Connected</span>`;
+            authZone.innerHTML = `<span style="color: #43b581">● Connected as ${data.username}</span>`;
         } else {
             guestView.style.display = 'block';
             userCard.style.display = 'none';
-            authZone.innerHTML = `<a href="#login" style="color: white; text-decoration: none">Guest Mode</a>`;
+            authZone.innerHTML = `<span>Guest Mode</span>`;
         }
     } catch (err) {
         console.error("Auth check failed", err);
+        document.getElementById('auth-zone').innerHTML = "Auth Error";
     }
 }
 
