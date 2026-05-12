@@ -2,28 +2,31 @@
 <html>
   <head>
     <script>
-      async function checkLoginStatus() {
+      async function updateAuthUI() {
         try {
-          const response = await fetch('/api/user');
-          const data = await response.json();
+          const response = await fetch('/api/me');
+          const user = await response.json();
       
-          const statusElement = document.getElementById('login-status');
-          const loginBtn = document.getElementById('login-btn');
+          const statusText = document.getElementById('auth-status'); // Create this element in HTML
+          const loginBtn = document.getElementById('login-btn');     // Your login button
       
-          if (data.loggedIn) {
-            statusElement.innerText = `Logged in as ID: ${data.user_id}`;
-            loginBtn.style.display = 'none'; // Hide login button
+          if (user.loggedIn) {
+            statusText.innerText = `Welcome back! User ID: ${user.id}`;
+            if (loginBtn) loginBtn.style.display = 'none'; // Hide login button
+            
+            // Optional: Show a logout button
+            console.log("User is logged in with ID:", user.id);
           } else {
-            statusElement.innerText = "Not logged in";
-            loginBtn.style.display = 'block'; // Show login button
+            statusText.innerText = "You are not logged in.";
+            if (loginBtn) loginBtn.style.display = 'block';
           }
-        } catch (error) {
-          console.error("Error checking auth:", error);
+        } catch (err) {
+          console.error("Failed to check auth status:", err);
         }
       }
 
-// Run check when page loads
-checkLoginStatus();
+// Run this as soon as the page loads
+updateAuthUI();
     </script>
   </head>
   <body>
