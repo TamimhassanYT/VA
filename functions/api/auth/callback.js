@@ -3,15 +3,10 @@ export async function onRequest(context) {
   const { searchParams } = new URL(request.url);
   const code = searchParams.get('code');
 
-  if (!code) return new Response("No code provided", { status: 400 });
-
-  // DEBUG: Check if variables are even loading
-  if (!env.DISCORD_CLIENT_ID || !env.DISCORD_CLIENT_SECRET) {
-    return new Response("Configuration Error: DISCORD_CLIENT_ID or SECRET is missing in Cloudflare Settings.", { status: 500 });
-  }
+  if (!code) return new Response("No code", { status: 400 });
 
   try {
-    const response = await fetch('https://discord.com/api/oauth2/token', {
+    const tokenResponse = await fetch('https://discord.com/api/oauth2/token', {
       method: 'POST',
       body: new URLSearchParams({
         client_id: env.DISCORD_CLIENT_ID,
@@ -20,36 +15,34 @@ export async function onRequest(context) {
         code: code,
         redirect_uri: env.DISCORD_REDIRECT_URI,
       }),
-      headers: {
+      headers: { 
         'Content-Type': 'application/x-www-form-urlencoded',
-        'User-Agent': 'VoxelAdder-Auth'
+        'User-Agent': 'VoxelAdder-Auth' 
       },
     });
 
-    const rawText = await response.text(); // Get raw text first to avoid JSON errors
-    
-    if (!response.ok) {
-      return new Response(`Discord Refused Request: ${rawText}`, { status: response.status });
-    }
+    const tokens = await tokenResponse.json();
+    if (!tokenResponse.ok) return new Response("Token Error", { status: 400 });
 
-    const tokens = JSON.parse(rawText);
-    
-    // Get User Data
+    // Fetch full user profile
     const userResponse = await fetch('https://discord.com/api/users/@me', {
       headers: { Authorization: `Bearer ${tokens.access_token}` },
     });
 
-    const userData = await userResponse.json();
+    const user = await userResponse.json();
+
+    // Create a data string for the cookie: ID|Username|AvatarHash
+    const sessionData = `${user.id}|${user.username}|${user.avatar}`;
 
     return new Response(null, {
       status: 302,
       headers: {
         'Location': '/',
-        'Set-Cookie': `auth_session=${userData.id}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=604800`,
+        // We set 'SameSite=Lax' so the cookie works after the redirect
+        'Set-Cookie': `auth_session=${encodeURIComponent(sessionData)}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=604800`,
       },
     });
-
   } catch (err) {
-    return new Response(`Crash Error: ${err.message}`, { status: 500 });
+    return new Response(err.message, { status: 500 });
   }
 }
