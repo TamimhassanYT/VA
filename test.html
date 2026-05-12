@@ -2,37 +2,28 @@
 <html>
   <head>
     <script>
-      window.addEventListener('DOMContentLoaded', async () => {
-        console.log("Browser: Sending message to secure function...");
-    
+      async function checkLoginStatus() {
         try {
-          const response = await fetch('/secure-log', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ message: "Hello from the user's browser!" })
-          });
-    
-          const result = await response.json();
-          console.log("Function Response:", result.status);
+          const response = await fetch('/api/user');
+          const data = await response.json();
+      
+          const statusElement = document.getElementById('login-status');
+          const loginBtn = document.getElementById('login-btn');
+      
+          if (data.loggedIn) {
+            statusElement.innerText = `Logged in as ID: ${data.user_id}`;
+            loginBtn.style.display = 'none'; // Hide login button
+          } else {
+            statusElement.innerText = "Not logged in";
+            loginBtn.style.display = 'block'; // Show login button
+          }
         } catch (error) {
-          console.error("Error talking to function:", error);
+          console.error("Error checking auth:", error);
         }
-      });
-
-      function loginWithDiscord() {
-        // PASTE YOUR REAL CLIENT ID BETWEEN THE QUOTES BELOW
-        const clientId = '1479417445260464171'; 
-        
-        const redirectUri = encodeURIComponent(window.location.origin + '/api/callback');
-        
-        // This builds the full link correctly
-        const discordUrl = 'https://discord.com' + 
-                           '?client_id=' + clientId + 
-                           '&redirect_uri=' + redirectUri + 
-                           '&response_type=code&scope=identify%20email';
-        
-        window.location.href = discordUrl;
       }
+
+// Run check when page loads
+checkLoginStatus();
     </script>
   </head>
   <body>
