@@ -1,37 +1,57 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <script>
-      async function updateAuthUI() {
-        try {
-          const response = await fetch('/api/me');
-          const user = await response.json();
-      
-          const statusText = document.getElementById('auth-status'); // Create this element in HTML
-          const loginBtn = document.getElementById('login-btn');     // Your login button
-      
-          if (user.loggedIn) {
-            statusText.innerText = `Welcome back! User ID: ${user.id}`;
-            if (loginBtn) loginBtn.style.display = 'none'; // Hide login button
-            
-            // Optional: Show a logout button
-            console.log("User is logged in with ID:", user.id);
-          } else {
-            statusText.innerText = "You are not logged in.";
-            if (loginBtn) loginBtn.style.display = 'block';
-          }
-        } catch (err) {
-          console.error("Failed to check auth status:", err);
-        }
-      }
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoxelAdder | Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
 
-// Run this as soon as the page loads
-updateAuthUI();
-    </script>
-  </head>
-  <body>
-    <button id="login-status">ls</button>
-    <button id="login-btn">fla</button>
-    <button onclick="window.location.href = 'https://discord.com/oauth2/authorize?client_id=1479417445260464171&response_type=code&redirect_uri=https%3A%2F%2Fvoxeladder.zanity.net%2Fapi%2Fauth%2Fcallback&scope=identify'">Sign up with Discord</button>
-  </body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">VOXEL<span>ADDER</span></div>
+            <div class="auth-zone" id="auth-zone">
+                <button class="btn-loading">Checking Auth...</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="hero">
+        <div class="hero-content">
+            <h1>UNLEASH THE <span class="accent">ARSENAL</span></h1>
+            <p>Join the ultimate Guns PVP experience. Custom weapons, headshot mechanics, and zero-lag performance.</p>
+            
+            <div class="dashboard-card" id="user-card" style="display: none;">
+                <div class="user-info">
+                    <img id="user-avatar" src="" alt="Avatar">
+                    <div>
+                        <h3 id="user-name">Loading...</h3>
+                        <p id="user-id" class="subtext"></p>
+                    </div>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span>Rank</span>
+                        <strong>Recruit</strong>
+                    </div>
+                    <div class="stat-item">
+                        <span>Server Status</span>
+                        <strong class="online">ONLINE</strong>
+                    </div>
+                </div>
+                <a href="/api/auth/logout" class="btn-logout">Sign Out</a>
+            </div>
+
+            <div id="guest-view">
+                <a href="https://discord.com/api/oauth2/authorize?client_id=YOUR_CLIENT_ID&redirect_uri=https%3A%2F%2Fvoxeladder.zanity.net%2Fapi%2Fauth%2Fcallback&response_type=code&scope=identify" class="btn-login">
+                    Login with Discord
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
 </html>
