@@ -8,17 +8,25 @@
 <meta name="theme-color" content="#FFFFFF" />
 <title>VoxelAdder</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="header.css">
 <link rel="icon" href="favicon.ico">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<style>
 		body {
 			margin: 0;
 			background-color: rgb(15, 15, 15);
-			width: 100%; /* Using 100% instead of 100vw prevents scroll issues */
+			width: 100%;
 			overflow-x: hidden;
 			min-height: 100vh;
-		}
-		
+		}	
+/*		body{width:100%;overflow-x:hidden;font-family:'Inter',sans-serif;background:#0A0A0F;color:rgb(228, 228, 228);line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;scroll-behavior:smooth} */
+		#snow-canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
+
+		.reveal{opacity:0;transform:translateY(30px);transition:opacity .6s ease-out,transform .6s cubic-bezier(.16,1,.3,1)}.reveal.active{opacity:1;transform:translateY(0)}
+
 		.facebox {
 			place-items: center;
 			background-color: rgb(74, 74, 74, 0.2);
@@ -199,12 +207,249 @@
 			font-size: 8px;
 			color: white;
 		}
+
+		.account, #signbb {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100vw;
+			height: 100vh;
+			background-color: rgba(0, 0, 0, 0.7); /* Slightly darker for better focus */
+			z-index: 999; /* Ensure it is above everything */
+			
+			/* Centering logic */
+			display: none; /* Switch to 'flex' via JS */
+			justify-content: center;
+			align-items: center; 
+		}
+
+		.innerbox, #signib {
+			position: relative; /* Changed from sticky */
+			width: 75vw;
+			max-width: 800px; /* Recommended to prevent it being too wide on ultra-wide monitors */
+			min-height: 35vh;
+			background-color: rgb(18, 18, 18);
+			border: 2px solid rgb(12, 12, 12);
+			border-radius: 15px;
+			padding: 0px 5vh 0px 5vh;
+			
+			/* To push it "a little bit down" from the absolute center */
+			margin-top: 5vh; 
+		}
+		
+		#sh, .ach {
+			font-family: 'Outfit', sans-serif;
+			color: white;
+			text-shadow: 0px 0px 25px white;
+			display: flex; 
+			justify-content: space-between;
+			align-items: center; 
+			width: 100%;
+		}
+
+		#lh {
+			font-family: 'Outfit', sans-serif;
+			color: white;
+			text-shadow: 0px 0px 25px white;
+			display: flex; 
+			margin-top: auto;
+			justify-self: center;
+			text-align: center;
+		}
+
+		#unc {
+			color: white;
+		}
+
+		#user-avatar {
+			border-radius: 25%;
+			border: 2px solid rgb(240, 240, 240);
+		}
+
+		#afb {
+			display: flex;
+			align-items: center;
+			gap: 20px;
+			font-family: 'Outfit', sans-serif;
+		}
+
+		#dc {
+			color: rgb(45, 28, 204);
+			border: 2px solid rgb(19, 0, 190);
+			padding: 0px 5px 0px 5px;
+			border-radius: 15px;
+			font-size: 4vh;
+			font-family: 'Comfortaa', sans-serif;
+			background-color: rgba(19, 0, 190, 0.178);
+			display: flex;
+			justify-self: center;
+			cursor: pointer;
+		}
+
+		#su {
+			display: flex;
+			place-items: center;
+			flex-direction: column;
+		}
+
+		#lu, #alu {
+			color: white;
+			padding: 1.5vh;
+			background-color: red;
+			border: 2px solid darkred;
+			border-radius: 5px;
+			display: block;
+			justify-self: right;
+			max-height: 100%;
+			bottom: 100px;
+		}
+
+		#lu:hover {
+			color: black;
+		}
+
+		#pass, #repass {
+			background-color: rgb(15, 15, 15);
+			border: 1.5px dashed rgb(222, 222, 222, 0.4);
+			border-radius: 4px;
+			font-size: 20px;
+			color: white;
+			padding: 4px;
+		}
+
+		#spwbtn {
+			background-color: rgb(15, 15, 15);
+			border: 1.5px solid rgba(41, 41, 41, 0.4);
+			border-radius: 4px;
+			font-size: 15px;
+			color: white;
+			padding: 4px;
+			height: fit-object;
+			cursor: pointer;
+		}
+
+		#updatebtn {
+			color: white;
+			background-color: rgb(15, 15, 15);
+			border: 2px solid rgb(158, 158, 158);
+			margin-top: 4vh;
+			padding: 1vh;
+			border-radius: 5px;
+			justify-self: center;
+			font-size: 2vh;
+			text-align: center;
+			width: 25vw;
+		}
+
+		#updatebtn:hover {
+			opacity: 0.5;
+		}
+
+		#signin {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 0vw;
+			height: 0vh;
+			background-color: rgba(0, 0, 0, 0.7); /* Slightly darker for better focus */
+			z-index: 120; /* Ensure it is above everything */
+			
+			/* Centering logic */
+			display: flex; /* Switch to 'flex' via JS */
+			justify-content: center;
+			align-items: center; 
+		}
+
+		#lbb {
+			display: grid;
+			position: relative; /* Changed from sticky */
+			min-width: 100vw; /* Recommended to prevent it being too wide on ultra-wide monitors */
+			min-height: 100vh;
+			background-color: rgb(18, 18, 18);
+			border: 2px solid rgb(12, 12, 12);
+			border-radius: 15px;
+			padding: 20px 5vh 5vh 5vh;
+			z-index: 121;
+			
+			/* To push it "a little bit down" from the absolute center */
+			margin-top: 5vh;
+			transition: 1.4s;
+			transform: scale(0);
+		}
+
+		#signin:target #lbb {
+			transform: scale(0.85);
+		}
+		
+		#signin:target {
+			width: 100vw;
+			height: 100vh;
+		}
+
+		#nap {
+			height: object-fit;
+			padding-bottom: 5vh;
+		}
+
+		#err-nupf-bb {
+			min-width: 4vw;
+			min-height: 2vh;
+			border: 4px solid rgb(175, 175, 175);
+			z-index: 49;
+			justify-self: center;
+			border-radius: 10px;
+			position: fixed;
+			padding: 0vh 1vh 0vh 1vh;
+			color: white;
+			background-color: rgba(255, 255, 255, 0.274);
+			text-align: justify;
+			transition: 0.8s;
+			transform: translateY(-30vh);
+			backdrop-filter: blur(2px);
+			-webkit-backdrop-filter: blur(2px);
+		}
+
+		#err-nupf-bb:target {
+			transform: translateY(40px);
+		}
+
+		.lmb {
+			display: grid;
+			align-items: center;
+		}
+
+		#logininput, #type {
+			width: 25vw;
+			font-size: 4vh;
+			padding: 10px;
+			background-color: rgb(18, 18, 18);
+			border: 0.5vh dashed rgba(85, 85, 85, 0.596);
+			justify-self: center;
+			border-radius: 10px;
+		}
+
+		@media (max-width: 425px) {
+			#dc {
+				font-size: 3vh;
+			}
+
+			#logininput, #type {
+				width: 100%;
+			}
+
+			#afb {
+				display: grid;
+				grid-template-columns: 100% 100%;
+			}
+		}
 	</style>
 </head>
 <body>
+<!--	<canvas id="snow-canvas"></canvas>  -->
 	<div class="vaheader">
 		<h1 id="vah1" onclick="window.location.href = '../'">VoxelAdder</h1>
 		<div class="hbtns">
+			<button id="sbtn">Loading...</button>
 			<div class="menu">
 				<button class="mmenu">Menu</button>
 				<div class="menul">
@@ -213,6 +458,57 @@
 					<button id="mbtn" onclick="window.location.href = 'va-dev/'">Voxeladder Development</button>
 				</div>
 			</div>
+		</div>
+	</div>
+	<div id="signin">
+		<div id="lbb">
+			<h1 class="fw" id="lh">Login<br>with</h1>
+			<div class="lmb">
+				<h1 id="type"><span id="dc">@ Discord</span></h1>
+				<input type="text" id="logininput">
+				<h3 id="error-login"></h3>
+				<button id="updatebtn" onclick="login()">Login</button>
+			</div>
+		</div>
+	</div>
+	<div class="account" id="ac" onload="loadui()">
+		<div class="innerbox" onload="loadac()">
+			<h1 class="ach" id="ah"><span>Account</span><span onclick="document.getElementById('ac').style.display='none'" style="margin-left:auto;cursor:pointer">x</span></h1>
+			<div id="afb">
+				<div id="aib"><img id="user-avatar" src="" alt="Avatar"></div>
+				<div id="adb"><h2 id="unc"><span>Name: </span><span id="username">Loading...</span><br><span>ID: </span><span id="uid">Loading...</span></h2></div>
+			</div>
+			<button id="alu" style="margin-bottom: 4vh" onclick="window.location.href = '/api/auth/logout'">Logout</button>
+			<div id="nap">
+				<h2 id="anph" class="ach" style="padding-top: 4vh;">Setup account password</h2>
+				<p id="anpp" style="color:gray"><i>Don't use your real discord account password</i></p>
+				<div class="anp">
+					<input type="password" id="pass" placeholder="New Password">
+					<input type="password" id="repass" placeholder="Confirm Password">
+					<button id="spwbtn" onclick="document.getElementById('pass').type = 'text'; document.getElementById('repass').type = 'text'">Showpassword</button>
+					<h3 id="error-register"></h3>
+					<button id="updatebtn" onclick="register()">Update Password</button>
+					<button id="lu" onclick="window.location.href = '/api/auth/logout'">Logout</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="signbb">
+		<div id="signib">
+			<div id="signb" style="display: grid; width:100%">
+				<div><h1 id="sh"><span>Signup</span><span onclick="document.getElementById('signbb').style.display='none'" style="cursor:pointer;display:flex;justify-self:center">x</span></h1>
+				</div>
+				<div id="su">
+					<h2 style="color:white;text-shadow: 0px 0px 25px white">with</h2>
+					<span id="dc" onclick="window.location.href = 'https://discord.com/oauth2/authorize?client_id=1481876100794679378&response_type=code&redirect_uri=https%3A%2F%2Fminiature-space-capybara-qvvprgvvvph669x-8788.app.github.dev%2Fapi%2Fauth%2Fcallback&scope=identify'">Discord</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div>
+		<div id="err-nupf-bb">
+			<h3 id="poperrh3">loading...</h3>
+			<p id="poperrp">loading...</p>
 		</div>
 	</div>
 	<div class="warnformobies">
@@ -330,6 +626,7 @@
 	</div>
 	<p><span class="footer">The domain is provided by <span style="cursor:pointer" onclick="window.location.href = 'https://freedns.afraid.org/'">freedns.afraid.org</span> and website also hosted on <span style="cursor:pointer" onclick="window.location.href = 'https://www.cloudflare.com/'">cloudflare</span></span><p>
     <script src='typewritter.js' defer></script>
+	<script src='/functions/api/load.js' defer></script>
 <script>
 	function openlinks(a) {
 		if (a === 1) {
