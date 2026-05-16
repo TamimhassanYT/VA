@@ -1,6 +1,6 @@
 async function checkAuth() {
     try {
-        const response = await fetch('/api/me');
+        const response = await fetch('F:/ideaprojects/vawebsite/VA-main (2)/VA-main/functions/api/me.js');
         const data = await response.json();
 
         const guestView = document.getElementById('guest-view');
