@@ -3,7 +3,7 @@ export async function onRequest(context) {
   const { searchParams } = new URL(request.url);
   const code = searchParams.get('code');
 
-  if (!code) return new Response("No code", { status: 400 });
+  if (!code) return new Response("No authorization code provided.", { status: 400 });
 
   try {
     const tokenResponse = await fetch('https://discord.com/api/oauth2/token', {
@@ -22,7 +22,11 @@ export async function onRequest(context) {
     });
 
     const tokens = await tokenResponse.json();
-    if (!tokenResponse.ok) return new Response("Token Error", { status: 400 });
+    
+    // Detailed error visibility if Discord rejects the credentials or redirect URI
+    if (!tokenResponse.ok) {
+      return new Response(`OAuth Token Exchange Failed: ${JSON.stringify(tokens)}`, { status: 400 });
+    }
 
     // Fetch full user profile
     const userResponse = await fetch('https://discord.com/api/users/@me', {
@@ -31,18 +35,17 @@ export async function onRequest(context) {
 
     const user = await userResponse.json();
 
-    // Create a data string for the cookie: ID|Username|AvatarHash
-    const sessionData = `${user.id}|${user.username}|${user.avatar}`;
+    // FIXED: Appended a trailing pipe so it splits cleanly into 4 parts on the password screen
+    const sessionData = `${user.id}|${user.username}|${user.avatar}|`;
 
     return new Response(null, {
       status: 302,
       headers: {
-        'Location': '/',
-        // We set 'SameSite=Lax' so the cookie works after the redirect
+        'Location': '/#signin', // Take them directly to the signin hash modal to trigger your password logic
         'Set-Cookie': `auth_session=${encodeURIComponent(sessionData)}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=604800`,
       },
     });
   } catch (err) {
-    return new Response(err.message, { status: 500 });
+    return new Response(`Internal Callback Error: ${err.message}`, { status: 500 });
   }
 }
