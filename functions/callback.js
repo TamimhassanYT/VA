@@ -9,8 +9,8 @@ export async function onRequestGet(context) {
   const tokenResponse = await fetch('https://discord.com', {
     method: 'POST',
     body: new URLSearchParams({
-      client_id: DISCORD_CLIENT_ID,
-      client_secret: DISCORD_CLIENT_SECRET,
+      client_id: env.DISCORD_CLIENT_ID,
+      client_secret: env.DISCORD_CLIENT_SECRET,
       grant_type: 'authorization_code',
       code: code,
       redirect_uri: new URL(context.request.url).origin + '/api/callback',
