@@ -102,11 +102,13 @@
 		}
 
 .vaheader {
-  background-color: rgba(59, 59, 59, 0.9);
+  background-color: rgba(34, 34, 34, 0.9);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
 
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 50;
 
   display: grid;
   grid-template-columns: auto 1fr;
@@ -114,7 +116,7 @@
 
   padding: 10px 10px;
 
-  border-radius: 0 0 5px 5px;
+  border-radius: 10px;
 }
 
 .vaheader h1 {
@@ -166,7 +168,6 @@
   .hbtn {
     height: 25px;
   }
-}
 
   .mmenu {
     height: 25px;
@@ -186,7 +187,6 @@
   .hbtn {
     height: 30px;
   }
-}
 
   .mmenu {
     height: 30px;
@@ -206,7 +206,6 @@
   .hbtn {
     height: 30px;
   }
-}
 
   .mmenu {
     height: 30px;
