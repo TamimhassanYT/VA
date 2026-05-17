@@ -362,8 +362,6 @@
 
 		#lbb {
 			display: grid;
-			position: relative; /* Changed from sticky */
-			min-width: 100vw; /* Recommended to prevent it being too wide on ultra-wide monitors */
 			min-height: 100vh;
 			background-color: rgb(18, 18, 18);
 			border: 2px solid rgb(12, 12, 12);
@@ -371,8 +369,13 @@
 			padding: 20px 5vh 5vh 5vh;
 			z-index: 121;
 			
-			/* To push it "a little bit down" from the absolute center */
-			margin-top: 5vh;
+			/* --- THE FIXES --- */
+			position: fixed;       /* Keeps it isolated from layout collapses */
+			inset: 0;              /* Pins it to all edges of the viewport */
+			margin: auto;          /* Centers it perfectly */      /* Keeps your "little bit down" offset intact */
+			
+			/* Origin alignment & Animation */
+			transform-origin: center center; /* Explicitly forces scale to happen from center */
 			transition: 1.4s;
 			transform: scale(0);
 		}
@@ -380,8 +383,10 @@
 		#signin:target #lbb {
 			transform: scale(0.85);
 		}
-		
+
 		#signin:target {
+			/* Optional: If #signin is just a wrapper, make sure it stays fixed too */
+			position: fixed;
 			width: 100vw;
 			height: 100vh;
 		}
@@ -500,7 +505,7 @@
 				</div>
 				<div id="su">
 					<h2 style="color:white;text-shadow: 0px 0px 25px white">with</h2>
-					<span id="dc" onclick="window.location.href = 'https://discord.com/oauth2/authorize?client_id=1479417445260464171&response_type=code&redirect_uri=https%3A%2F%2Fvoxeladder.zanity.net%2Fapi%2Fauth%2Fcallback&scope=identify'">Discord</span>
+					<span id="dc" onclick="window.location.href = 'https://discord.com/oauth2/authorize?client_id=1481876100794679378&response_type=code&redirect_uri=https%3A%2F%2Fminiature-space-capybara-qvvprgvvvph669x-8788.app.github.dev%2Fapi%2Fauth%2Fcallback&scope=identify'">Discord</span>
 				</div>
 			</div>
 		</div>
@@ -626,7 +631,7 @@
 	</div>
 	<p><span class="footer">The domain is provided by <span style="cursor:pointer" onclick="window.location.href = 'https://freedns.afraid.org/'">freedns.afraid.org</span> and website also hosted on <span style="cursor:pointer" onclick="window.location.href = 'https://www.cloudflare.com/'">cloudflare</span></span><p>
     <script src='typewritter.js' defer></script>
-	<script src='load.js' defer></script>
+	<script src='/functions/api/load.js' defer></script>
 <script>
 	function openlinks(a) {
 		if (a === 1) {
