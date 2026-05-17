@@ -77,35 +77,24 @@ async function loadui() {
         if (data.authorized) {
             // If they are trying to open the sign-in modal but are already logged in
             if (window.location.hash === '#signin') {
-               window.location.hash = '#success';
+                window.location.hash = '';
             }
-
-//            if (window.location.href == '#success') {
-  //              let va = `<span style="font-family: 'Outfit', sans-serif;font-weight: bold">VoxelAdder</span>`
-    //            window.location.hash = '#err-nupf-bb';
-      //          poperrh3.innerHTML = 'Wellcome to ' + va;
-        //        poperrp.innerText = 'Now u can save you changes in editor and you exited guest mode';
-          //      errnupfbb.style.backgroundColor = 'rgb(167, 0, 0, 0.274)';
-          //      errnupfbb.style.border = '4px solid rgb(151, 0, 0)';
-          //  }
-            // Even if not redirecting, we stop here because they are verified
             return;
-        }
-
-        if (data.ErrPass === "userlogin") {
-            let login = ` <span onclick="window.location.hash = '#signin'" style="font-family: 'Outfit', sans-serif;cursor:pointer;color:lightblue">Login</span>`;
-            errnupfbb.style.border = '4px solid rgb(0, 151, 0)';
-            errnupfbb.style.backgroundColor = 'rgba(0, 151, 0, 0.274)';
-            poperrh3.innerText = 'Login';
-            poperrp.innerHTML = "Please" + login + " to complete authentication";
-            window.location.hash = '#err-nupf-bb';
         }
     } catch (e) {
         console.error("Load UI failed", e);
     }
 }
 
-
+async function popsuccess() {
+    let va = `<span style="font-family: 'Outfit', sans-serif;font-weight: bold">VoxelAdder</span>`
+    window.location.hash = '#err-nupf-bb';
+    document.getElementById('poperrh3').innerHTML = 'Wellcome to ' + va;
+    document.getElementById('poperrp').innerText = 'Now u can save you changes in editor and you exited guest mode';
+    document.getElementById('err-nupf-bb').style.backgroundColor = 'rgb(0, 167, 0, 0.274)';
+    document.getElementById('err-nupf-bb').style.border = '4px solid rgb(0, 151, 20)';
+    setTimeout(seterror, 2500, "out");
+}
 
 // SEPARATE FUNCTION: For New Users (Registration)
 async function register() {
@@ -157,7 +146,8 @@ async function granted(targetAction, userPassword, errorElementId) {
         const data = await response.json();
         
         if (data.access === "authorized") {
-            window.location.href = "/dashboard";
+            window.location.hash = "#success";
+            setTimeout(popsuccess, 0);
         } else {
             err.innerText = data.error || "Access Denied";
             err.style.color = "red";
@@ -170,3 +160,9 @@ async function granted(targetAction, userPassword, errorElementId) {
 // Start everything
 loadac();
 loadui();
+
+async function seterror(a) {
+    if (a === "out") {
+        window.location.hash = "#";
+    }
+}
