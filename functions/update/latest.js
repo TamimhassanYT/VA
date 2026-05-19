@@ -1,7 +1,7 @@
 export async function onRequestPost(context) {
     // Your plugin update data
     const updateData = {
-        version: "1.0.1",
+        version: "1.0.0-1.0.5",
         download_url: "https://voxeladder.zanity.net"
     };
 
